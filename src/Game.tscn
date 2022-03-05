@@ -1,18 +1,38 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://assets/font/fontsmall.fnt" type="BitmapFont" id=2]
 [ext_resource path="res://assets/image/ibye.png" type="Texture" id=3]
 [ext_resource path="res://assets/font/font.fnt" type="BitmapFont" id=4]
 [ext_resource path="res://assets/video/v1_ge.webm" type="VideoStream" id=5]
 [ext_resource path="res://assets/shader/ColorKeyPlus.gdshader" type="Shader" id=6]
 [ext_resource path="res://assets/voice/v1_laugh.ogg" type="AudioStream" id=7]
+[ext_resource path="res://theme.tres" type="Theme" id=8]
+[ext_resource path="res://Bg.gd" type="Script" id=9]
+[ext_resource path="res://assets/image/star.png" type="Texture" id=10]
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 6 )
 shader_param/color = null
 shader_param/range = 0.2
 
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.077, 0.166, 0.266, 0.379, 0.491, 0.55, 0.609, 0.704, 0.805, 0.911, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 0.152941, 0, 1, 1, 0.72549, 0, 1, 0.780392, 1, 0, 1, 0.290196, 1, 0, 1, 0, 1, 0.47451, 1, 0, 1, 0.654902, 1, 0, 1, 0.835294, 1, 0, 0.717647, 1, 1, 0.219608, 0, 1, 1, 1, 0, 0.772549, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+lifetime_randomness = 1.0
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color_ramp = SubResource( 7 )
+
 [node name="Game" type="CanvasLayer"]
+script = ExtResource( 9 )
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -63,11 +83,11 @@ expand = false
 [node name="AudioClassic" type="AudioStreamPlayer" parent="Control"]
 stream = ExtResource( 7 )
 
-[node name="CC" type="CenterContainer" parent="Control"]
+[node name="UI" type="CenterContainer" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Panel" type="Panel" parent="Control/CC"]
+[node name="Panel" type="Panel" parent="Control/UI"]
 margin_left = 156.0
 margin_top = 252.0
 margin_right = 924.0
@@ -76,7 +96,7 @@ rect_min_size = Vector2( 768, 576 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Start" type="Button" parent="Control/CC/Panel"]
+[node name="Start" type="Button" parent="Control/UI/Panel"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -88,7 +108,7 @@ margin_bottom = -63.9999
 custom_fonts/font = ExtResource( 4 )
 text = "继续"
 
-[node name="Label" type="Label" parent="Control/CC/Panel"]
+[node name="Label" type="Label" parent="Control/UI/Panel"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -192.0
@@ -99,7 +119,7 @@ text = "找到隐藏的艾白"
 align = 1
 valign = 1
 
-[node name="Text" type="RichTextLabel" parent="Control/CC/Panel"]
+[node name="Text" type="RichTextLabel" parent="Control/UI/Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -110,12 +130,78 @@ margin_right = 284.0
 margin_bottom = -49.0
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[center]你已找到[color=green]5[/color]只[/center]"
-text = "你已找到5只"
+bbcode_text = "[center]总共找到[color=green]5[/color]只[/center]"
+text = "总共找到5只"
+
+[node name="Label2" type="Label" parent="Control/UI/Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -336.0
+margin_top = 268.0
+margin_right = -222.0
+margin_bottom = 336.0
+rect_scale = Vector2( 0.75, 0.75 )
+custom_fonts/font = ExtResource( 4 )
+text = "寻找"
+align = 1
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="Control/UI/Panel"]
+margin_left = 134.0
+margin_top = 270.0
+margin_right = 368.0
+margin_bottom = 324.0
+theme = ExtResource( 8 )
+custom_fonts/font = ExtResource( 2 )
+text = "绿色肥鸡"
+icon = ExtResource( 3 )
+expand_icon = true
+items = [ "绿色肥鸡", ExtResource( 3 ), false, 0, null, "123", null, false, 1, null ]
+selected = 0
+
+[node name="Label3" type="RichTextLabel" parent="Control/UI/Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 1.0
+margin_top = 270.0
+margin_right = 371.0
+margin_bottom = 383.0
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "找到[color=red]5[/color]只解锁下一个"
+text = "找到5只解锁下一个"
+
+[node name="Label4" type="Label" parent="Control/UI/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -158.5
+margin_top = -94.0
+margin_right = 158.5
+margin_bottom = -46.0
+custom_colors/font_color = Color( 0.870588, 0.807843, 0.141176, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "炉火纯青"
+align = 1
+valign = 1
+
+[node name="MouseParticle" type="Particles2D" parent="."]
+position = Vector2( 1559.5, 491.096 )
+emitting = false
+amount = 1000
+lifetime = 2.0
+randomness = 0.48
+local_coords = false
+process_material = SubResource( 9 )
+texture = ExtResource( 10 )
 
 [connection signal="resized" from="Control" to="Control" method="_on_Control_resized"]
 [connection signal="mouse_entered" from="Control/IBye" to="Control" method="_on_IBye_mouse_entered"]
 [connection signal="mouse_exited" from="Control/IBye" to="Control" method="_on_IBye_mouse_exited"]
 [connection signal="pressed" from="Control/IBye" to="Control" method="_on_IBye_pressed"]
 [connection signal="finished" from="Control/VideoPlayer" to="Control" method="_on_VideoPlayer_finished"]
-[connection signal="pressed" from="Control/CC/Panel/Start" to="Control" method="_on_Start_pressed"]
+[connection signal="pressed" from="Control/UI/Panel/Start" to="Control" method="_on_Start_pressed"]
+[connection signal="item_selected" from="Control/UI/Panel/OptionButton" to="Control" method="_on_OptionButton_item_selected"]
