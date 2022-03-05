@@ -11,13 +11,14 @@ config_version=4
 [application]
 
 config/name="FindIBye"
-config/description="寻找艾白"
+config/description="找到白子"
 run/main_scene="res://Game.tscn"
 boot_splash/image="res://assets/image/boot.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/image/ibye.png"
+config/windows_native_icon="res://assets/image/ibye.ico"
 
 [display]
 
