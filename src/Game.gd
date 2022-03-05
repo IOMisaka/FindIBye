@@ -149,7 +149,7 @@ func set_options():
 		option.select(config.type)
 	
 	if self.score < 30:
-		next.text = prompt_next % next_score
+		next.bbcode_text = prompt_next % next_score
 	elif self.score >= 50:
 		next.text = prompt_all
 	else:
